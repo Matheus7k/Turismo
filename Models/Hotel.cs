@@ -13,5 +13,10 @@ namespace Models
         public Endereco Endereco { get; set; }
         public DateTime DataCriacao { get; set; }
         public decimal Valor { get; set; }
+
+        public override string ToString()
+        {
+            return $"Nome: {Nome}\n{Endereco}\nValor: {Valor}";
+        }
     }
 }

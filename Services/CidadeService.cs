@@ -6,7 +6,7 @@ namespace Services
 {
     public class CidadeService
     {
-        readonly string _strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\Desktop\c#\DB\turismo.mdf;";
+        readonly string _strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\Desktop\c#\DB\Turismo\Turismo\Banco\turismo.mdf;";
         readonly SqlConnection Conn;
 
         public CidadeService()

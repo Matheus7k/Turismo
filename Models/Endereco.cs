@@ -19,7 +19,7 @@ namespace Models
 
         public override string ToString()
         {
-            return $"Id:{Id}\nLogradouro:{Logradouro}\nNumero: {Numero}\nBairro: {Bairro}\nCEP: {CEP}\nComplemento: {Complemento}\nCidade: {Cidade.Descricao}\nData de Cadastro: {DataCadastro}\n";
+            return $"Logradouro:{Logradouro}\nNumero: {Numero}\nBairro: {Bairro}\nCEP: {CEP}\nComplemento: {Complemento}\nCidade: {Cidade.Descricao}\n";
         }
     }
 }
