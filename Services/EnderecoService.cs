@@ -182,5 +182,31 @@ namespace Services
 
             return enderecos;
         }
+
+        public Endereco GetEnderecoId(int id)
+        {
+            string strSelectEndereco = "select e.Id, e.Logradouro, e.Numero, e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, e.DataCadastro from Endereco e, Cidade c where e.Id= @Id and e.Cidade = c.Id";
+            SqlCommand commandSelectEndereco = new(strSelectEndereco, Conn);
+
+            commandSelectEndereco.Parameters.Add(new SqlParameter("@Id", id));
+
+            SqlDataReader dr = commandSelectEndereco.ExecuteReader();
+
+            Endereco endereco = new();
+
+            while (dr.Read())
+            {
+                endereco.Id = (int)dr["Id"];
+                endereco.Logradouro = (string)dr["Logradouro"];
+                endereco.Numero = (int)dr["Numero"];
+                endereco.Bairro = (string)dr["Bairro"];
+                endereco.CEP = (string)dr["CEP"];
+                endereco.Complemento = (string)dr["Complemento"];
+                endereco.Cidade = new Cidade() { Descricao = (string)dr["Cidade"] };
+                endereco.DataCadastro = (DateTime)dr["DataCadastro"];
+            }
+
+            return endereco;
+        }
     }
 }

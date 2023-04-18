@@ -99,5 +99,40 @@ namespace Services
 
             return clientes;
         }
+
+        public Cliente GetCliente(string nome)
+        {
+            StringBuilder sb = new();
+
+            sb.Append("select cli.Id, cli.Nome, cli.Telefone, e.Logradouro, e.Numero , e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, cli.DataCadastro");
+            sb.Append(" from Cliente cli, Endereco e, Cidade c where cli.Endereco = e.Id and e.Cidade = c.Id");
+
+            SqlCommand commandSelect = new(sb.ToString(), Conn);
+
+            commandSelect.Parameters.Add(new SqlParameter("@Nome", nome));
+
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Cliente cliente = new();
+
+            while (dr.Read())
+            {
+                cliente.Id = (int)dr["Id"];
+                cliente.Nome = (string)dr["Nome"];
+                cliente.Telefone = (string)dr["Telefone"];
+                cliente.Endereco = new Endereco()
+                {
+                    Logradouro = (string)dr["Logradouro"],
+                    Numero = (int)dr["Numero"],
+                    Bairro = (string)dr["Bairro"],
+                    CEP = (string)dr["CEP"],
+                    Complemento = (string)dr["Complemento"],
+                    Cidade = new Cidade() { Descricao = (string)dr["Cidade"] },
+                };
+                cliente.DataCadastro = (DateTime)dr["DataCadastro"];
+            }
+
+            return cliente;
+        }
     }
 }

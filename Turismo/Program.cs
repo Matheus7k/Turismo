@@ -76,9 +76,9 @@ internal class Program
         #endregion
 
         #region CRUD CLIENTE
-        Cidade cidade = new CidadeService().GetCidade("Araraquara");
+        //Cidade cidade = new CidadeService().GetCidade("Araraquara");
 
-        
+        /*
         Cliente cliente = new()
         {
             Nome = "Matheus",
@@ -95,14 +95,80 @@ internal class Program
             },
             DataCadastro = DateTime.Now,
         };
-
+        */
 
         //new ClienteController().Insert(cliente);
         //new ClienteController().GetCliente().ForEach(Console.WriteLine);
 
-        new ClienteController().InsertDapper(cliente);
+        //new ClienteController().InsertDapper(cliente);
+        //new ClienteController().GetClientesDapper().ForEach(Console.WriteLine);
 
 
+        #endregion
+
+        #region CRUD PASSAGEM
+        /*
+        Cidade cidadeOrigem = new CidadeService().GetCidade("Guariba");
+
+        Endereco origem = new()
+        {
+            Logradouro = "Rua Jornalista Alexandre",
+            Numero = 183,
+            Bairro = "Nova Guariba",
+            CEP = "14840-000",
+            Complemento = "Casa",
+            Cidade = cidadeOrigem,
+            DataCadastro = DateTime.Now
+        };
+
+        Cidade cidadeDestino = new CidadeService().GetCidade("Araraquara");
+
+        
+        Endereco destino = new()
+        {
+            Logradouro = "Rua Teste",
+            Numero = 742,
+            Bairro = "Nova Holanda",
+            CEP = "14848-745",
+            Complemento = "Casa",
+            Cidade = cidadeDestino,
+            DataCadastro = DateTime.Now
+        };
+
+        Cliente cliente = new ClienteController().GetClienteNome("Matheus");
+
+        Passagem passagem = new()
+        {
+            
+            Origem = new Endereco()
+            {
+                Logradouro = "Rua Jornalista Alexandre",
+                Numero = 183,
+                Bairro = "Nova Guariba",
+                CEP = "14840-000",
+                Complemento = "Casa",
+                Cidade = cidadeOrigem,
+                DataCadastro = DateTime.Now
+            },
+            Destino = new Endereco()
+            {
+                Logradouro = "Rua Teste",
+                Numero = 742,
+                Bairro = "Nova Holanda",
+                CEP = "14848-745",
+                Complemento = "Casa",
+                Cidade = cidadeDestino,
+                DataCadastro = DateTime.Now
+            },
+            Cliente = cliente,
+            Data = DateTime.Now,
+            Valor = 258
+        };
+        */
+
+        //new PassagemController().Insert(passagem);
+
+        new PassagemController().GetPassagens().ForEach(Console.WriteLine);
         #endregion
     }
 }

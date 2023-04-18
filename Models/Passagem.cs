@@ -13,5 +13,10 @@ namespace Models
         public Cliente Cliente { get; set; }
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
+
+        public override string ToString()
+        {
+            return $"Origem: {Origem}\nDestino: {Destino}\nCliente: {Cliente}\nData: {Data}\nValor: {Valor}";
+        }
     }
 }

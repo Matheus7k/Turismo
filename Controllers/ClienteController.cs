@@ -29,6 +29,11 @@ namespace Controllers
             return clienteService.GetClientes();
         }
 
+        public Cliente GetClienteNome(string nome)
+        {
+            return clienteService.GetCliente(nome);
+        }
+
         public bool InsertDapper(Cliente cliente)
         {
             return new ClienteRepository().Insert(cliente);
