@@ -117,13 +117,13 @@ namespace Services
 
             try
             {
-                string strInsertCidade = "delete Cidade where Id = @Id";
+                string strDeleteCidade = "delete Cidade where Id = @Id";
 
-                SqlCommand commandInsert = new(strInsertCidade, Conn);
+                SqlCommand commandDelete = new(strDeleteCidade, Conn);
 
-                commandInsert.Parameters.Add(new SqlParameter("@Id", cidade.Id));
+                commandDelete.Parameters.Add(new SqlParameter("@Id", cidade.Id));
 
-                commandInsert.ExecuteNonQuery();
+                commandDelete.ExecuteNonQuery();
 
                 status = true;
             }

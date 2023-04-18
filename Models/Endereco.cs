@@ -16,5 +16,10 @@ namespace Models
         public string Complemento { get; set; }
         public Cidade Cidade { get; set; }
         public DateTime DataCadastro { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id:{Id}\nLogradouro:{Logradouro}\nNumero: {Numero}\nBairro: {Bairro}\nCEP: {CEP}\nComplemento: {Complemento}\nCidade: {Cidade.Descricao}\nData de Cadastro: {DataCadastro}\n";
+        }
     }
 }
