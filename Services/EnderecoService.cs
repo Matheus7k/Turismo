@@ -159,7 +159,7 @@ namespace Services
             List<Endereco> enderecos = new();
 
             StringBuilder sb = new();
-            sb.Append("select e.Id, e.Logradouro, e.Numero, e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, e.DataCadastro from Endereco e, Cidade c where e.Cidade = c.Id");
+            sb.Append("select e.Id, e.Logradouro, e.Numero, e.Bairro, e.CEP, e.Complemento, e.Cidade, e.DataCadastro from Endereco e, Cidade c where e.Cidade = c.Id");
 
             SqlCommand commandSelect = new(sb.ToString(), Conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
@@ -174,7 +174,7 @@ namespace Services
                 endereco.Bairro = (string)dr["Bairro"];
                 endereco.CEP = (string)dr["CEP"];
                 endereco.Complemento = (string)dr["Complemento"];
-                endereco.Cidade = new Cidade() { Descricao = (string)dr["Cidade"] };
+                endereco.Cidade = new CidadeService().GetCIdadeId((int)dr["Cidade"]);
                 endereco.DataCadastro = (DateTime)dr["DataCadastro"];
 
                 enderecos.Add(endereco);
@@ -185,7 +185,7 @@ namespace Services
 
         public Endereco GetEnderecoId(int id)
         {
-            string strSelectEndereco = "select e.Id, e.Logradouro, e.Numero, e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, e.DataCadastro from Endereco e, Cidade c where e.Id= @Id and e.Cidade = c.Id";
+            string strSelectEndereco = "select e.Id, e.Logradouro, e.Numero, e.Bairro, e.CEP, e.Complemento, e.Cidade, e.DataCadastro from Endereco e, Cidade c where e.Id= @Id and e.Cidade = c.Id";
             SqlCommand commandSelectEndereco = new(strSelectEndereco, Conn);
 
             commandSelectEndereco.Parameters.Add(new SqlParameter("@Id", id));
@@ -202,7 +202,7 @@ namespace Services
                 endereco.Bairro = (string)dr["Bairro"];
                 endereco.CEP = (string)dr["CEP"];
                 endereco.Complemento = (string)dr["Complemento"];
-                endereco.Cidade = new Cidade() { Descricao = (string)dr["Cidade"] };
+                endereco.Cidade = new CidadeService().GetCIdadeId((int)dr["Cidade"]);
                 endereco.DataCadastro = (DateTime)dr["DataCadastro"];
             }
 

@@ -17,11 +17,33 @@ namespace Services
 
         public Cidade GetCidade(string descricao)
         {
-            string strSelectCidade = "select * from Cidade where Descricao = @Descricao";
+            string strSelectCidade = "select Id, Descricao, DataCadastro from Cidade where Descricao = @Descricao";
 
             SqlCommand commandSelect = new(strSelectCidade, Conn);
 
             commandSelect.Parameters.Add(new SqlParameter("@Descricao", descricao));
+
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Cidade cidade = new();
+
+            while (dr.Read())
+            {
+                cidade.Id = (int)dr["Id"];
+                cidade.Descricao = (string)dr["Descricao"];
+                cidade.DataCadastro = (DateTime)dr["DataCadastro"];
+            }
+
+            return cidade;
+        }
+
+        public Cidade GetCIdadeId(int id)
+        {
+            string strSelectCidade = "select Id, Descricao, DataCadastro from Cidade where Id = @Id";
+
+            SqlCommand commandSelect = new(strSelectCidade, Conn);
+
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
 
             SqlDataReader dr = commandSelect.ExecuteReader();
 

@@ -70,7 +70,7 @@ namespace Services
 
             StringBuilder sb = new();
 
-            sb.Append("select cli.Id, cli.Nome, cli.Telefone, e.Logradouro, e.Numero , e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, cli.DataCadastro");
+            sb.Append("select cli.Id, cli.Nome, cli.Telefone, cli.Endereco, cli.DataCadastro");
             sb.Append(" from Cliente cli, Endereco e, Cidade c where cli.Endereco = e.Id and e.Cidade = c.Id");
 
             SqlCommand commandSelect = new(sb.ToString(), Conn);
@@ -83,15 +83,7 @@ namespace Services
                 cliente.Id = (int)dr["Id"];
                 cliente.Nome = (string)dr["Nome"];
                 cliente.Telefone = (string)dr["Telefone"];
-                cliente.Endereco = new Endereco()
-                {
-                    Logradouro = (string)dr["Logradouro"],
-                    Numero = (int)dr["Numero"],
-                    Bairro = (string)dr["Bairro"],
-                    CEP = (string)dr["CEP"],
-                    Complemento = (string)dr["Complemento"],
-                    Cidade = new Cidade() { Descricao = (string)dr["Cidade"] },
-                };
+                cliente.Endereco = new EnderecoService().GetEnderecoId((int)dr["Endereco"]);
                 cliente.DataCadastro = (DateTime)dr["DataCadastro"];
 
                 clientes.Add(cliente);
@@ -104,8 +96,8 @@ namespace Services
         {
             StringBuilder sb = new();
 
-            sb.Append("select cli.Id, cli.Nome, cli.Telefone, e.Logradouro, e.Numero , e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, cli.DataCadastro");
-            sb.Append(" from Cliente cli, Endereco e, Cidade c where cli.Endereco = e.Id and e.Cidade = c.Id");
+            sb.Append("select cli.Id, cli.Nome, cli.Telefone, cli.Endereco, cli.DataCadastro");
+            sb.Append(" from Cliente cli where cli.Nome = @Nome");
 
             SqlCommand commandSelect = new(sb.ToString(), Conn);
 
@@ -120,15 +112,33 @@ namespace Services
                 cliente.Id = (int)dr["Id"];
                 cliente.Nome = (string)dr["Nome"];
                 cliente.Telefone = (string)dr["Telefone"];
-                cliente.Endereco = new Endereco()
-                {
-                    Logradouro = (string)dr["Logradouro"],
-                    Numero = (int)dr["Numero"],
-                    Bairro = (string)dr["Bairro"],
-                    CEP = (string)dr["CEP"],
-                    Complemento = (string)dr["Complemento"],
-                    Cidade = new Cidade() { Descricao = (string)dr["Cidade"] },
-                };
+                cliente.Endereco = new EnderecoService().GetEnderecoId((int)dr["Endereco"]);
+                cliente.DataCadastro = (DateTime)dr["DataCadastro"];
+            }
+
+            return cliente;
+        }
+
+        public Cliente GetClienteId(int id)
+        {
+            StringBuilder sb = new();
+
+            sb.Append("select cli.Id, cli.Nome, cli.Telefone, cli.Endereco, cli.DataCadastro from Cliente cli where cli.Id = @Id");
+
+            SqlCommand commandSelect = new(sb.ToString(), Conn);
+
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Cliente cliente = new();
+
+            while (dr.Read())
+            {
+                cliente.Id = (int)dr["Id"];
+                cliente.Nome = (string)dr["Nome"];
+                cliente.Telefone = (string)dr["Telefone"];
+                cliente.Endereco = new EnderecoService().GetEnderecoId((int)dr["Endereco"]);
                 cliente.DataCadastro = (DateTime)dr["DataCadastro"];
             }
 

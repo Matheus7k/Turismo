@@ -70,7 +70,7 @@ namespace Services
 
             StringBuilder sb = new();
 
-            sb.Append("select h.Id, h.Nome, e.Logradouro, e.Numero , e.Bairro, e.CEP, e.Complemento, c.Descricao Cidade, h.Valor");
+            sb.Append("select h.Id, h.Nome, h.Endereco, h.Valor");
             sb.Append(" from Hotel h, Endereco e, Cidade c where h.Endereco = e.Id and e.Cidade = c.Id");
 
             SqlCommand commandSelect = new(sb.ToString(), Conn);
@@ -82,21 +82,40 @@ namespace Services
 
                 hotel.Id = (int)dr["Id"];
                 hotel.Nome = (string)dr["Nome"];
-                hotel.Endereco = new Endereco()
-                {
-                    Logradouro = (string)dr["Logradouro"],
-                    Numero = (int)dr["Numero"],
-                    Bairro = (string)dr["Bairro"],
-                    CEP = (string)dr["CEP"],
-                    Complemento = (string)dr["Complemento"],
-                    Cidade = new Cidade() { Descricao = (string)dr["Cidade"] },
-                };
+                hotel.Endereco = new EnderecoService().GetEnderecoId((int)dr["Endereco"]);
                 hotel.Valor = (decimal)dr["Valor"];
 
                 hoteis.Add(hotel);
             }
 
             return hoteis;
+        }
+
+        public Hotel GetHotelId(int id)
+        {
+            StringBuilder sb = new();
+
+            sb.Append("select h.Id, h.Nome, h.Endereco, h.DataCadastro,h.Valor");
+            sb.Append(" from Hotel h where h.Id = @Id");
+
+            SqlCommand commandSelect = new(sb.ToString(), Conn);
+
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Hotel hotel = new();
+
+            while(dr.Read())
+            {
+                hotel.Id= (int)dr["Id"];
+                hotel.Nome = (string)dr["Nome"];
+                hotel.Endereco = new EnderecoService().GetEnderecoId((int)dr["Endereco"]);
+                hotel.DataCriacao = (DateTime)dr["DataCadastro"];
+                hotel.Valor = (decimal)dr["Valor"];
+            }
+
+            return hotel;
         }
     }
 }

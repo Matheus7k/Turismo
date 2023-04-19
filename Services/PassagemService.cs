@@ -98,7 +98,7 @@ namespace Services
 
                 passagem.Origem = new EnderecoService().GetEnderecoId((int)dr["Origem"]);
                 passagem.Destino = new EnderecoService().GetEnderecoId((int)dr["Destino"]);
-                passagem.Cliente = new Cliente() { Nome = (string)dr["Nome"] };
+                passagem.Cliente = new ClienteService().GetClienteId((int)dr["Cliente"]);
                 passagem.Data = (DateTime)dr["Data"];
                 passagem.Valor = (decimal)dr["Valor"];
 
@@ -106,6 +106,33 @@ namespace Services
             }
 
             return passagens;
+        }
+
+        public Passagem GetPassagemId(int id)
+        {
+            StringBuilder sb = new();
+
+            sb.Append("select p.Id, p.Origem, p.Destino, p.Cliente, p.[Data], p.Valor from Passagem p where p.Id = @Id");
+
+            SqlCommand commandSelect = new(sb.ToString(), Conn);
+
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Passagem passagem = new();
+
+            while (dr.Read())
+            {
+                passagem.Id = (int)dr["Id"];
+                passagem.Origem = new EnderecoService().GetEnderecoId((int)dr["Origem"]);
+                passagem.Destino = new EnderecoService().GetEnderecoId((int)dr["Destino"]);
+                passagem.Cliente = new ClienteService().GetClienteId((int)dr["Cliente"]);
+                passagem.Data = (DateTime)dr["Data"];
+                passagem.Valor = (decimal)dr["Valor"];
+            }
+
+            return passagem;
         }
     }
 }

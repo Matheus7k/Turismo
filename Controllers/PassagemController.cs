@@ -22,6 +22,11 @@ namespace Controllers
             return passagemService.Insert(passagem);
         }        
 
+        public Passagem GetPassagemId(int id)
+        {
+            return passagemService.GetPassagemId(id);
+        }
+
         public List<Passagem> GetPassagens()
         {
             return passagemService.GetPassagens();
