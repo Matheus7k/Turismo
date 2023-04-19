@@ -168,7 +168,28 @@ internal class Program
 
         //new PassagemController().Insert(passagem);
 
-        new PassagemController().GetPassagens().ForEach(Console.WriteLine);
+        //new PassagemController().GetPassagens().ForEach(Console.WriteLine);
+        #endregion
+
+        #region CRUD PACOTE
+        /*
+        Hotel hotel = new HotelService().GetHotelId(7);
+        Passagem passagemPacote = new PassagemController().GetPassagemId(5);
+        Cliente clientePacote = new ClienteController().GetClienteNome("Matheus");
+
+        Pacote pacote = new()
+        {
+            Hotel = hotel,
+            Passagem = passagemPacote,
+            DataCadastro = DateTime.Now,
+            Valor = 6500,
+            Cliente = clientePacote
+        };
+        */
+
+        //new PacoteService().Insert(pacote);
+        //new PacoteService().GetPacotes().ForEach(Console.WriteLine);
+
         #endregion
     }
 }
