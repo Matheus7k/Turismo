@@ -117,5 +117,18 @@ namespace Services
 
             return hotel;
         }
+
+        public void Update(Hotel hotel)
+        {
+            string strUpdate = "update Hotel set Nome = @Nome, Valor = @Valor where Id = @Id";
+
+            SqlCommand commandUpdate = new(strUpdate, Conn);
+
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", hotel.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@Nome", hotel.Nome));
+            commandUpdate.Parameters.Add(new SqlParameter("@Valor", hotel.Valor));
+
+            commandUpdate.ExecuteNonQuery();
+        }
     }
 }

@@ -76,5 +76,28 @@ namespace Services
 
             return pacotes;
         }
+
+        public void Delete(Pacote pacote)
+        {
+            string strDelete = $"delete from Pacote where Id = @Id";
+
+            SqlCommand commandUpdate = new(strDelete, Conn);
+
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", pacote.Id));
+
+            commandUpdate.ExecuteNonQuery();
+        }
+
+        public void Update(Pacote pacote)
+        {
+            string strUpdate = "update Pacote set Valor = @Valor where Id = @Id";
+
+            SqlCommand commandUpdate = new(strUpdate, Conn);
+
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", pacote.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@Valor", pacote.Valor));
+
+            commandUpdate.ExecuteNonQuery();
+        }
     }
 }

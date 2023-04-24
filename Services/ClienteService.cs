@@ -144,5 +144,18 @@ namespace Services
 
             return cliente;
         }
+
+        public void Update(Cliente cliente)
+        {
+            string strUpdate = "update Cliente set Nome = @Nome, Telefone = @Telefone where Id = @Id";
+
+            SqlCommand commandUpdate = new(strUpdate, Conn);
+
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", cliente.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@Nome", cliente.Nome));
+            commandUpdate.Parameters.Add(new SqlParameter("@Telefone", cliente.Telefone));
+
+            commandUpdate.ExecuteNonQuery();
+        }
     }
 }

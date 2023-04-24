@@ -10,14 +10,21 @@ namespace Controllers
 {
     public class HotelController
     {
+        private readonly HotelService _hotelService;
+
+        public HotelController()
+        {
+            _hotelService = new();
+        }
+
         public bool Insert(Hotel hotel)
         {
-            return new HotelService().Insert(hotel);
+            return _hotelService.Insert(hotel);
         }
 
         public List<Hotel> GetHoteis()
         {
-            return new HotelService().GetHoteis();
+            return _hotelService.GetHoteis();
         }
     }
 }

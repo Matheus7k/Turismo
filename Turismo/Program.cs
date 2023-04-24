@@ -20,7 +20,7 @@ internal class Program
 
         //new CidadeController().GetCidades().ForEach(Console.WriteLine);
 
-        //new CidadeController().Delete("Guaribas");
+        new CidadeController().Delete("Guariba");
         #endregion
 
         #region CRUD ENDEREÇO

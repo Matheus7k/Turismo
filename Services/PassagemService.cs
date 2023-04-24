@@ -134,5 +134,17 @@ namespace Services
 
             return passagem;
         }
+
+        public void Update(Passagem passagem)
+        {
+            string strUpdate = "update Passagem set Valor = @Valor where Id = @Id";
+
+            SqlCommand commandUpdate = new(strUpdate, Conn);
+
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", passagem.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@Valor", passagem.Valor));
+
+            commandUpdate.ExecuteNonQuery();
+        }
     }
 }
